@@ -1,5 +1,29 @@
+import { initializeApp } from "firebase/app";
+import { getAuth, connectAuthEmulator } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import Chatroom from "./screens/chatroom";
+import Login from "./screens/login";
+
+const app = initializeApp({
+  apiKey: "AIzaSyAD9LBaaGYpPyQ9XWQ1Ty5WUNbLjvqiZbE",
+  authDomain: "test-firechatapp.firebaseapp.com",
+  projectId: "test-firechatapp",
+  storageBucket: "test-firechatapp.appspot.com",
+  messagingSenderId: "335285204863",
+  appId: "1:335285204863:web:f5d8e7afda8bd913fb0c4a",
+  measurementId: "G-Z6T92H03CH",
+});
+
+const auth = getAuth(app);
+
+if (document.location.hostname === "localhost") {
+  connectAuthEmulator(auth, "http://localhost:9099");
+}
+
 function App() {
-  return <h1 className="text-3xl font-bold underline">Hello, world!</h1>;
+  const [user] = useAuthState(auth);
+
+  return <>{user ? <Chatroom auth={auth} /> : <Login auth={auth} />}</>;
 }
 
 export default App;
