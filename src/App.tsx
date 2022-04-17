@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, connectAuthEmulator } from "firebase/auth";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Chatroom from "./screens/chatroom";
 import Login from "./screens/login";
@@ -15,15 +16,23 @@ const app = initializeApp({
 });
 
 const auth = getAuth(app);
-
+const firestore = getFirestore(app);
 if (document.location.hostname === "localhost") {
   connectAuthEmulator(auth, "http://localhost:9099", { disableWarnings: true });
+  connectFirestoreEmulator(firestore, "localhost", 8080);
 }
 
 function App() {
   const [user] = useAuthState(auth);
-
-  return <>{user ? <Chatroom auth={auth} /> : <Login auth={auth} />}</>;
+  return (
+    <>
+      {user ? (
+        <Chatroom auth={auth} firestore={firestore} />
+      ) : (
+        <Login auth={auth} />
+      )}
+    </>
+  );
 }
 
 export default App;

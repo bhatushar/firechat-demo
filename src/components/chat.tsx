@@ -1,27 +1,27 @@
 interface ChatProps {
   type: "sent" | "received";
-  author: string;
+  photoUrl?: string;
   message: string;
 }
 
-function Chat({ type, author, message }: ChatProps) {
+function Chat({ type, photoUrl, message }: ChatProps) {
   return (
     <div
-      className={`flex ${type === "sent" ? "justify-end" : "justify-start"}`}
+      className={`flex gap-2 ${
+        type === "sent" ? "justify-end" : "justify-start"
+      }`}
     >
-      <div className="mx-2 my-1">
-        {type === "received" && (
-          <div className="text-gray-500 text-sm">{author}</div>
-        )}
-        <div
-          className={`px-2 py-1 rounded-2xl ${
-            type === "received"
-              ? "bg-slate-200 text-black"
-              : "bg-blue-600 text-white"
-          }`}
-        >
-          {message}
-        </div>
+      {type === "received" && (
+        <img src={photoUrl} alt="Photo" className="rounded-full w-9 h-9 mt-2" />
+      )}
+      <div
+        className={`px-2 py-1 rounded-2xl mt-2 ${
+          type === "received"
+            ? "bg-slate-200 text-black"
+            : "bg-blue-600 text-white"
+        }`}
+      >
+        {message}
       </div>
     </div>
   );
