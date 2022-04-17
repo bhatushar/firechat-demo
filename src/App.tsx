@@ -17,7 +17,7 @@ const app = initializeApp({
 const auth = getAuth(app);
 
 if (document.location.hostname === "localhost") {
-  connectAuthEmulator(auth, "http://localhost:9099");
+  connectAuthEmulator(auth, "http://localhost:9099", { disableWarnings: true });
 }
 
 function App() {
