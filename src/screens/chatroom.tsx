@@ -83,7 +83,7 @@ function Chatroom({ auth, firestore }: { auth: Auth; firestore: Firestore }) {
       </header>
 
       {/* Chat section */}
-      <section className="bg-white pb-14 md:px-6">
+      <section className="bg-white pb-14 px-1 md:px-6">
         {chats &&
           chats.map((chat) => (
             <Chat
