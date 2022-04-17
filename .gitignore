@@ -25,3 +25,5 @@ dist-ssr
 
 # Firebase emulator data
 emulator-data
+# Firebase auto-generated data
+.firebase
